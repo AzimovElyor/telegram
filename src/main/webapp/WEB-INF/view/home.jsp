@@ -11,6 +11,6 @@
     <title>Home</title>
 </head>
 <body>
-<h1>Hello Home</h1>
+<h1>Hello Home!</h1>
 </body>
 </html>
