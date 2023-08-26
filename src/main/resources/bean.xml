@@ -11,12 +11,23 @@
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd">
 
-     <mvc:annotation-driven/>
+    <mvc:annotation-driven/>
     <context:component-scan base-package="com.example"/>
 
+    <bean class="com.example.springmvc.repository.MessageRepositoryImpl">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" name="dataSource">
+        <constructor-arg name="url" value="jdbc:postgresql://localhost:5432/postgres"/>
+        <constructor-arg name="username" value="telegram"/>
+        <constructor-arg name="password" value="telegram"/>
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+    </bean>
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-    <property name="prefix" value="/WEB-INF/view/"/>
-    <property name="suffix" value=".jsp"/>
-   </bean>
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/view/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
 </beans>

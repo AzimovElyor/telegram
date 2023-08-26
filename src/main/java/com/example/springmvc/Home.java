@@ -15,7 +15,7 @@ public class Home {
     @RequestMapping("/home{name}")
     public String project(@PathVariable String name){
         System.out.println(name);
-        return "hwome";
+        return "home";
     }
 
 }
