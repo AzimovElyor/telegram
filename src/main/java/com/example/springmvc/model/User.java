@@ -8,6 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
+@EqualsAndHashCode(callSuper = true)
 public class User extends BaseModel{
     private String username;
     private String firstName;

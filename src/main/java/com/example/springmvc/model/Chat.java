@@ -1,11 +1,20 @@
 package com.example.springmvc.model;
 
-import java.util.UUID;
+import lombok.*;
 
+import java.util.UUID;
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Setter
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = true)
 public class Chat extends BaseModel{
-    private UUID senderId;
-    private UUID receiverId;
-    private boolean isDeleted;
-    private boolean isNew;
+    private UUID memberFirstId;
+    private UUID memberSecondId;
+    private UUID memberFirstIsDelete;
+    private UUID memberSecondIsDelete;
+    private boolean isActive;
 
 }
