@@ -19,7 +19,7 @@
     </bean>
 
     <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" name="dataSource">
-        <constructor-arg name="url" value="jdbc:postgresql://localhost:5432/postgres"/>
+        <constructor-arg name="url" value="jdbc:postgresql://localhost:5432/telegram"/>
         <constructor-arg name="username" value="telegram"/>
         <constructor-arg name="password" value="telegram"/>
         <property name="driverClassName" value="org.postgresql.Driver"/>
