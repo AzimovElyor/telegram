@@ -13,7 +13,6 @@ import java.util.UUID;
 
 
 @Repository
-@Data
 
 public class MessageRepositoryImpl implements MessageRepository {
     private DriverManagerDataSource dataSource;
@@ -56,7 +55,7 @@ public class MessageRepositoryImpl implements MessageRepository {
     }
 
     @Override
-    public Optional<List<Message>> getAll() {
+    public List<Message> getAll() {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -68,7 +67,7 @@ public class MessageRepositoryImpl implements MessageRepository {
                 messages.add(card);
             }
 
-            return Optional.of(messages);
+            return  messages;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -117,7 +116,7 @@ public class MessageRepositoryImpl implements MessageRepository {
     }
 
     @Override
-    public Optional<List<Message>> findByUserId(UUID sederId) {
+    public List<Message> findByUserId(UUID sederId) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_SENDER_ID);
             preparedStatement.setObject(1, sederId);
@@ -129,7 +128,7 @@ public class MessageRepositoryImpl implements MessageRepository {
                 Message card = Message.map(resultSet);
                 messages.add(card);
             }
-            return Optional.of(messages);
+            return messages;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

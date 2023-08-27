@@ -7,5 +7,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface MessageRepository extends BaseRepository<Message>{
-    Optional<List<Message>> findByUserId(UUID sederId);
+    List<Message> findByUserId(UUID sederId);
 }

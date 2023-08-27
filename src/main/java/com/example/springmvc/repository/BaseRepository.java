@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface BaseRepository<T extends BaseModel> {
     Optional<T> save(T model);
-    Optional<List<T>> getAll();
+    List<T> getAll();
     Optional<T>findById(UUID id);
     int update(T model);
     int delete(UUID id);
