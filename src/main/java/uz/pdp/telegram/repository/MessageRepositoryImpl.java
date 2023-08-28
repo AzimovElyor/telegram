@@ -1,8 +1,10 @@
 package uz.pdp.telegram.repository;
 
+import lombok.RequiredArgsConstructor;
 import uz.pdp.telegram.model.Message;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Repository;
+import uz.pdp.telegram.repository.chat.ChatRepositoryImpl;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,7 +15,10 @@ import java.util.UUID;
 
 @Repository
 
+
 public class MessageRepositoryImpl implements MessageRepository {
+
+
     private DriverManagerDataSource dataSource;
     private Connection connection;
     private final String SAVE = "insert into message (id, txt, chat_id, sender_id, created_date, updated_date)\n" +
@@ -25,6 +30,7 @@ public class MessageRepositoryImpl implements MessageRepository {
             "set txt = ?\n" +
             "where id= ?;";
     private final String DELETE = "delete from message where id?;";
+    private final String FIND_BY_CHAT_ID="select * from message where chat_id = ?;";
 
     public void setDataSource(DriverManagerDataSource dataSource) {
 
@@ -119,6 +125,25 @@ public class MessageRepositoryImpl implements MessageRepository {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_SENDER_ID);
             preparedStatement.setObject(1, sederId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Message> messages = new ArrayList<>();
+
+            while (resultSet.next()) {
+                Message card = Message.map(resultSet);
+                messages.add(card);
+            }
+            return messages;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Message> findByChatId(UUID chatId) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_CHAT_ID);
+            preparedStatement.setObject(1,chatId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             List<Message> messages = new ArrayList<>();

@@ -6,10 +6,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Repository;
 import uz.pdp.telegram.model.Chat;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,21 +40,53 @@ public class ChatRepositoryImpl implements ChatRepository{
 
     @Override
     public List<Chat> getAll() {
-        return null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(ChatSqlQueries.GET_ALL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ArrayList<Chat> chats = new ArrayList<>();
+            while (resultSet.next()){
+                chats.add(new Chat(resultSet));
+            }
+            return chats;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public Optional<Chat> findById(UUID id) {
-        return Optional.empty();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(ChatSqlQueries.FIND_BY_ID);
+            preparedStatement.setObject(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return Optional.of(new Chat(resultSet));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public int update(Chat model) {
-        return 0;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(ChatSqlQueries.UPDATE);
+            preparedStatement.setTimestamp(1,Timestamp.valueOf(model.getUpdated()));
+            preparedStatement.setObject(2,model.getId());
+            preparedStatement.execute();
+            return 1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public int delete(UUID id) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(ChatSqlQueries.DELETE_CHAT);
+            preparedStatement.setObject(1,id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException("Chatni delete qiganda muammo boldi");
+        }
         return 0;
     }
 
@@ -79,6 +108,22 @@ public class ChatRepositoryImpl implements ChatRepository{
           throw new RuntimeException("Userni chatlarini  topishda nuammo roy berdi");
       }
     }
+
+    @Override
+    public int delete(UUID chatId, UUID memberId) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(ChatSqlQueries.DELETE_CHAT_FROM_ONE_MEMBER);
+            preparedStatement.setObject(1,memberId);
+            preparedStatement.setObject(2,memberId);
+            preparedStatement.setObject(3,chatId);
+            preparedStatement.execute();
+            return 1;
+        } catch (SQLException e) {
+            throw new RuntimeException("Chatni delete qiganda muammo boldi");
+        }
+    }
+
+
     public boolean isNewChat(UUID firstMember, UUID secondMember){
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(ChatSqlQueries.IS_NEW_CHAT);

@@ -8,5 +8,6 @@ import java.util.UUID;
 
 public interface ChatRepository extends BaseRepository<Chat> {
     List<Chat> getUserChats(UUID userId);
+    int delete(UUID chatId,UUID memberId);
 
 }
