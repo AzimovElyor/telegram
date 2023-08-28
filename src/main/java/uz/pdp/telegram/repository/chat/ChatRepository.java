@@ -1,7 +1,7 @@
-package com.example.springmvc.repository.chat;
+package uz.pdp.telegram.repository.chat;
 
-import com.example.springmvc.model.Chat;
-import com.example.springmvc.repository.BaseRepository;
+import uz.pdp.telegram.model.Chat;
+import uz.pdp.telegram.repository.BaseRepository;
 
 import java.util.List;
 import java.util.UUID;

@@ -12,9 +12,9 @@
         https://www.springframework.org/schema/context/spring-context.xsd">
 
     <mvc:annotation-driven/>
-    <context:component-scan base-package="com.example"/>
+    <context:component-scan base-package="com.uz"/>
 
-    <bean class="com.example.springmvc.repository.MessageRepositoryImpl">
+    <bean class="uz.pdp.telegram.repository.MessageRepositoryImpl">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 

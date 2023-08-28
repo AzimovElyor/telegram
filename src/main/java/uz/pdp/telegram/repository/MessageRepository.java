@@ -1,9 +1,8 @@
-package com.example.springmvc.repository;
+package uz.pdp.telegram.repository;
 
-import com.example.springmvc.model.Message;
+import uz.pdp.telegram.model.Message;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface MessageRepository extends BaseRepository<Message>{

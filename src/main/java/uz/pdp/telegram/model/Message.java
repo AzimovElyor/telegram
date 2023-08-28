@@ -1,4 +1,4 @@
-package com.example.springmvc.model;
+package uz.pdp.telegram.model;
 
 import lombok.*;
 

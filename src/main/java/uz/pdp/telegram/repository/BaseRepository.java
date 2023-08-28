@@ -1,6 +1,6 @@
-package com.example.springmvc.repository;
+package uz.pdp.telegram.repository;
 
-import com.example.springmvc.model.BaseModel;
+import uz.pdp.telegram.model.BaseModel;
 
 import java.util.List;
 import java.util.Optional;

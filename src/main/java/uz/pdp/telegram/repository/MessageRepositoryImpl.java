@@ -1,7 +1,6 @@
-package com.example.springmvc.repository;
+package uz.pdp.telegram.repository;
 
-import com.example.springmvc.model.Message;
-import lombok.Data;
+import uz.pdp.telegram.model.Message;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Repository;
 

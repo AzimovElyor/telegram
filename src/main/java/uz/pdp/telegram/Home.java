@@ -1,4 +1,4 @@
-package com.example.springmvc;
+package uz.pdp.telegram;
 
 import org.springframework.stereotype.Controller;
 
