@@ -30,7 +30,7 @@ public class MessageRepositoryImpl implements MessageRepository {
             "set txt = ?\n" +
             "where id= ?;";
     private final String DELETE = "delete from message where id?;";
-    private final String FIND_BY_CHAT_ID="select * from message m inner join chat c on m.chatId=c.id where c.id=? order by m.updated_date ;";
+    private final String FIND_BY_CHAT_ID="select * from message where chat_id = ?;";
 
     public void setDataSource(DriverManagerDataSource dataSource) {
 
