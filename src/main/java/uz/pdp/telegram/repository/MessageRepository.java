@@ -7,4 +7,5 @@ import java.util.UUID;
 
 public interface MessageRepository extends BaseRepository<Message>{
     List<Message> findByUserId(UUID sederId);
+    List<Message> findByChatId(UUID chatId);
 }
